@@ -43,16 +43,16 @@ int	ft_printf(const char *s, ...)
 	va_start(args, s);
 	while (s[i])
 	{
-		if (s[i] == '%')
+		if (s[i++] == '%')
 		{
-			if (ft_strchr("cspdiuxX", s[i++]))
+			if (ft_strchr("cspdiuxX", s[i]) || s[i] == '%')
 				flags(s[i], args);
-			else if (!s[i + 1])
+			else if (!s[i])
 				i++;
 			else
 			{
 				ft_putchar('%');
-				i += 2;
+				i++;
 			}
 		}
 		else
