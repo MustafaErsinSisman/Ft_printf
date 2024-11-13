@@ -1,9 +1,6 @@
-SRCS = 
-
-BONUS = 
+SRCS = ft_printf.c ft_printf_utils.c 
 
 OBJS = $(SRCS:.c=.o)
-BONUSOBJS = $(BONUS:.c=.o)
 
 NAME = libftprintf.a
 
@@ -13,11 +10,8 @@ CFLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
-$(NAME): $(OBJS) bonus
+$(NAME): $(OBJS)
 	ar rc $(NAME) $(OBJS)
-
-bonus: $(BONUSOBJS)
-	ar rc $(NAME) $(BONUSOBJS)
 
 clean:
 	rm -rf $(OBJS) $(BONUSOBJS)
