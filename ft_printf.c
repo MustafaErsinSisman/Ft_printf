@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-static void	flags(char c, va_list args)
+static void	flags(int c, va_list args)
 {
 	if (c == 'c')
 		ft_putchar(va_arg(args, int));
@@ -43,12 +43,13 @@ int	ft_printf(const char *s, ...)
 	va_start(args, s);
 	while (s[i])
 	{
-		if (s[i++] == '%')
+		if (s[i] == '%')
 		{
+			i++;
 			if (ft_strchr("cspdiuxX", s[i]) || s[i] == '%')
-				flags(s[i], args);
+				flags(s[i++], args);
 			else if (!s[i])
-				i++;
+				break ;
 			else
 			{
 				ft_putchar('%');
