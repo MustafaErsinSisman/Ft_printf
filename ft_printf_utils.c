@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 void	ft_putchar(int c)
 {
@@ -30,7 +30,7 @@ void	ft_putstr(char *s)
 
 void	ft_putnbr_base(long nbr, char *base)
 {
-	long	n;
+	size_t	n;
 	size_t	base_len;
 
 	base_len = 0;
@@ -48,7 +48,7 @@ void	ft_putnbr_base(long nbr, char *base)
 	ft_putchar(base[n % base_len]);
 }
 
-void ft_ptrnbr_base(size_t nbr, char *base)
+void	ft_ptrnbr_base(size_t nbr, char *base)
 {
 	size_t	base_len;
 
@@ -67,7 +67,9 @@ char	*ft_strchr(const char *s, int c)
 	size_t	len;
 
 	i = 0;
-	len = ft_strlen(s);
+	len = 0;
+	while (s[len])
+		len++;
 	while (i <= len)
 	{
 		if (s[i] == (unsigned char)c)

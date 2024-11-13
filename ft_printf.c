@@ -10,16 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
-static void	cspdiuxX(char c, va_list args)
+static void	flags(char c, va_list args)
 {
 	if (c == 'c')
 		ft_putchar(va_arg(args, int));
 	else if (c == 's')
 		ft_putstr(va_arg(args, char *));
 	else if (c == 'p')
-		ft_ptrnbr_base(va_arg(args, size_t), "0123456789abcdef")
+		ft_ptrnbr_base(va_arg(args, size_t), "0123456789abcdef");
 	else if (c == 'd')
 		ft_putnbr_base(va_arg(args, int), "0123456789");
 	else if (c == 'i')
@@ -32,7 +32,7 @@ static void	cspdiuxX(char c, va_list args)
 		ft_putnbr_base(va_arg(args, unsigned int), "0123456789ABCDEF");
 	else if (c == '%')
 		ft_putchar('%');
-}	
+}
 
 int	ft_printf(const char *s, ...)
 {
@@ -46,7 +46,7 @@ int	ft_printf(const char *s, ...)
 		if (s[i] == '%')
 		{
 			if (ft_strchr("cspdiuxX", s[i++]))
-				cspdiuxX(s[i], args);
+				flags(s[i], args);
 			else if (!s[i + 1])
 				i++;
 			else
@@ -56,10 +56,7 @@ int	ft_printf(const char *s, ...)
 			}
 		}
 		else
-		{
-			ft_putchar(s[i]);
-			i++;
-		}
+			ft_putchar(s[i++]);
 	}
 	va_end(args);
 	return (0);
