@@ -19,7 +19,7 @@
 
 void	ft_putchar(int c);
 void	ft_putstr(char *s);
-void	ft_putnbr(long n);
+void	ft_putnbr_base(long nbr, char *base)
 int	ft_printf(const char *s, ...);
 
 #endif

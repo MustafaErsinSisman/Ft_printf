@@ -12,28 +12,26 @@
 
 #include "libftprintf.h"
 
-static void	cspdiuxX(char c)
+static void	cspdiuxX(char c, va_list args)
 {
 	if (c == 'c')
-		ft_putchar();
+		ft_putchar(va_arg(args, int));
 	else if (c == 's')
-		ft_putstr();
+		ft_putstr(va_arg(args, char *));
 	else if (c == 'p')
-
+		ft_ptrnbr_base(va_arg(args, size_t), "0123456789abcdef")
 	else if (c == 'd')
-		ft_putnbr();
+		ft_putnbr_base(va_arg(args, int), "0123456789");
 	else if (c == 'i')
-		ft_putnbr();
+		ft_putnbr_base(va_arg(args, int), "0123456789");
 	else if (c == 'u')
-		ft_putnbr();
+		ft_putnbr_base(va_arg(args, unsigned int), "0123456789");
 	else if (c == 'x')
-
+		ft_putnbr_base(va_arg(args, unsigned int), "0123456789abcdef");
 	else if (c == 'X')
-
+		ft_putnbr_base(va_arg(args, unsigned int), "0123456789ABCDEF");
 	else if (c == '%')
 		ft_putchar('%');
-	else
-
 }	
 
 int	ft_printf(const char *s, ...)
@@ -42,15 +40,20 @@ int	ft_printf(const char *s, ...)
 	size_t	i;
 
 	i = 0;
-	va_start(args, s[i]);
+	va_start(args, s);
 	while (s[i])
 	{
 		if (s[i] == '%')
 		{
-			while (s[i + 1] && s[i + 1] == ' ')
+			if (ft_strchr("cspdiuxX", s[i++]))
+				cspdiuxX(s[i], args);
+			else if (!s[i + 1])
 				i++;
-			cspdiuxX(s[i + 1]);
-			i++;
+			else
+			{
+				ft_putchar('%');
+				i += 2;
+			}
 		}
 		else
 		{
@@ -58,6 +61,6 @@ int	ft_printf(const char *s, ...)
 			i++;
 		}
 	}
-	va_arg(args, s[i]);
 	va_end(args);
+	return (0);
 }

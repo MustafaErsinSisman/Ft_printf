@@ -22,33 +22,57 @@ void	ft_putstr(char *s)
 	size_t	i;
 
 	i = 0;
+	if (!s)
+		ft_putstr("(null)");
 	while (s[i])
-	{
-		ft_putchar(s[i]);
-		i++;
-	}
+		ft_putchar(s[i++]);
 }
 
-void	ft_putnbr(long n)
+void	ft_putnbr_base(long nbr, char *base)
 {
-	size_t	nb;
+	long	n;
+	size_t	base_len;
 
-	if (n == -2147483648)
+	base_len = 0;
+	while (base[base_len])
+		base_len++;
+	if (nbr < 0)
 	{
-		write(1, "-2147483648", 11);
-		return ;
-	}
-	else if (n < 0)
-	{
-		ft_putchar_fd('-');
-		nb = -n;
+		ft_putchar('-');
+		n = -nbr;
 	}
 	else
-		nb = n;
-	if (nb > 9)
+		n = nbr;
+	if (n >= base_len)
+		ft_putnbr_base((n / base_len), base);
+	ft_putchar(base[n % base_len]);
+}
+
+void ft_ptrnbr_base(size_t nbr, char *base)
+{
+	size_t	base_len;
+
+	base_len = 0;
+	ft_putstr("0x");
+	while (base[base_len])
+		base_len++;
+	if (nbr >= base_len)
+		ft_ptrnbr_base((nbr / base_len), base);
+	ft_putchar(base[nbr % base_len]);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	size_t	i;
+	size_t	len;
+
+	i = 0;
+	len = ft_strlen(s);
+	while (i <= len)
 	{
-		ft_putnbr_fd(nb / 10);
-		nb %= 10;
+		if (s[i] == (unsigned char)c)
+			return ((char *)s + i);
+		i++;
 	}
-	ft_putchar_fd(nb + '0');
+	return (0);
 }
