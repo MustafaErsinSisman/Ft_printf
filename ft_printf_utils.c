@@ -6,7 +6,7 @@
 /*   By: musisman <<musisman@student.42.fr>>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 22:19:14 by musisman          #+#    #+#             */
-/*   Updated: 2024/11/14 18:39:34 by musisman         ###   ########.fr       */
+/*   Updated: 2024/11/14 18:47:00 by musisman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ size_t	ft_ptrnbr_base(size_t nbr, char *base)
 {
 	size_t	base_len;
 	size_t	i;
-
 
 	base_len = 0;
 	i = 2;
