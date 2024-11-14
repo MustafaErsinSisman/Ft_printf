@@ -12,32 +12,31 @@
 
 #include "ft_printf.h"
 
-size_t	ft_putchar(int c)
+int	ft_putchar(int c)
 {
 	write(1, &c, 1);
-	return	(1);
+	return (1);
 }
 
-size_t	ft_putstr(char *s)
+int	ft_putstr(char *s)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	if (!s)
 	{
 		ft_putstr("(null)");
-		return	(6);
+		return (6);
 	}
 	while (s[i])
 		ft_putchar(s[i++]);
-	return	(i);
+	return (i);
 }
 
-size_t	ft_putnbr_base(long nbr, char *base)
+int	ft_putnbr_base(long nbr, char *base)
 {
-	size_t	n;
-	size_t	i;
-	size_t	base_len;
+	int	i;
+	int	base_len;
 
 	i = 1;
 	base_len = 0;
@@ -46,46 +45,28 @@ size_t	ft_putnbr_base(long nbr, char *base)
 	if (nbr < 0)
 	{
 		ft_putchar('-');
-		n = -nbr;
+		nbr *= -1;
 	}
-	else
-		n = nbr;
-	if (n >= base_len)
-		i += ft_putnbr_base((n / base_len), base);
-	ft_putchar(base[n % base_len]);
-	return	(i);
+	if (nbr >= base_len)
+		i += ft_putnbr_base((nbr / base_len), base);
+	ft_putchar(base[nbr % base_len]);
+	return (i);
 }
 
-size_t	ft_ptrnbr_base(size_t nbr, char *base)
+int	ft_ptrnbr_base(void *, char *base)
 {
-	size_t	base_len;
-	size_t	i;
-
+	int	base_len;
+	int	i;
+	long 
 	base_len = 0;
 	i = 2;
+	if (nbr == )
+		return 
 	ft_putstr("0x");
 	while (base[base_len])
 		base_len++;
 	if (nbr >= base_len)
 		i += ft_ptrnbr_base((nbr / base_len), base);
 	ft_putchar(base[nbr % base_len]);
-	return	(i);
-}
-
-char	*ft_strchr(const char *s, int c)
-{
-	size_t	i;
-	size_t	len;
-
-	i = 0;
-	len = 0;
-	while (s[len])
-		len++;
-	while (i <= len)
-	{
-		if (s[i] == (unsigned char)c)
-			return ((char *)s + i);
-		i++;
-	}
-	return (0);
+	return (i);
 }

@@ -6,20 +6,20 @@
 /*   By: musisman <<musisman@student.42.fr>>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 22:19:56 by musisman          #+#    #+#             */
-/*   Updated: 2024/11/11 17:58:58 by musisman         ###   ########.fr       */
+/*   Updated: 2024/11/14 20:01:24 by musisman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static size_t	flags(int c, va_list args)
+static int	flags(int c, va_list args)
 {
 	if (c == 'c')
 		return (ft_putchar(va_arg(args, int)));
 	else if (c == 's')
 		return (ft_putstr(va_arg(args, char *)));
 	else if (c == 'p')
-		return (ft_ptrnbr_base(va_arg(args, size_t), "0123456789abcdef"));
+		return (ft_ptrnbr_base(va_arg(args, void *), "0123456789abcdef"));
 	else if (c == 'd')
 		return (ft_putnbr_base(va_arg(args, int), "0123456789"));
 	else if (c == 'i')
@@ -36,29 +36,24 @@ static size_t	flags(int c, va_list args)
 
 int	ft_printf(const char *s, ...)
 {
+	int	i;
+	int	len;
 	va_list	args;
-	size_t	i;
 
 	i = 0;
+	len = 0;
 	va_start(args, s);
 	while (s[i])
 	{
 		if (s[i] == '%')
 		{
 			i++;
-			if (ft_strchr("cspdiuxX", s[i]) || s[i] == '%')
-				flags(s[i++], args);
-			else if (!s[i])
-				break ;
-			else
-			{
-				ft_putchar('%');
-				i++;
-			}
+			len += flags(s[i], args);
 		}
 		else
-			ft_putchar(s[i++]);
+			len += ft_putchar(s[i]);
+		i++;
 	}
 	va_end(args);
-	return (0);
+	return (len);
 }
