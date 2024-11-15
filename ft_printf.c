@@ -14,12 +14,17 @@
 
 static int	flags(int c, va_list args)
 {
+	int	len;
+
 	if (c == 'c')
 		return (ft_putchar(va_arg(args, int)));
 	else if (c == 's')
 		return (ft_putstr(va_arg(args, char *)));
 	else if (c == 'p')
-		return (ft_ptrnbr_base(va_arg(args, void *), "0123456789abcdef"));
+	{
+		len = ft_putstr("0x");
+		return (len + ft_ptrnbr_base(va_arg(args, void *), "0123456789abcdef"));
+	}
 	else if (c == 'd')
 		return (ft_putnbr_base(va_arg(args, int), "0123456789"));
 	else if (c == 'i')
@@ -32,12 +37,14 @@ static int	flags(int c, va_list args)
 		return (ft_putnbr_base(va_arg(args, unsigned int), "0123456789ABCDEF"));
 	else if (c == '%')
 		return (ft_putchar('%'));
+	else
+		return (0);
 }
 
 int	ft_printf(const char *s, ...)
 {
-	int	i;
-	int	len;
+	int		i;
+	int		len;
 	va_list	args;
 
 	i = 0;
