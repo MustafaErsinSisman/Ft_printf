@@ -1,5 +1,6 @@
 #include "ft_printf.h"
 #include <stdio.h> // Orijinal printf için
+#include <limits.h>
 
 int main(void)
 {
@@ -22,6 +23,13 @@ int main(void)
     ft_printf("ft_printf: Pointer: %p\n", ptr);
     printf("printf   : Pointer: %p\n\n", ptr);
 
+    printf("printf   : Pointer: %p %p \n", NULL, (void *)LONG_MIN);
+    printf("printf   : Pointer: %p %p \n\n", (void *)LONG_MAX, (void *)ULONG_MAX);
+
+    ft_printf("ft_printf: Pointer: %p %p \n", NULL, (void *)LONG_MIN);
+    ft_printf("ft_printf: Pointer: %p %p \n", (void *)LONG_MAX, (void *)ULONG_MAX);
+
+
     // Negatif tam sayı çıktısı
     ft_printf("ft_printf: Decimal: %d\n", num);
     printf("printf   : Decimal: %d\n\n", num);
@@ -41,10 +49,6 @@ int main(void)
     // Yüzde işareti çıktısı
     ft_printf("ft_printf: Percent: %%\n");
     printf("printf   : Percent: %%\n\n");
-
-    // Geçersiz format karakteri çıktısı
-    ft_printf("ft_printf: Invalid format: %y\n");
-    printf("printf   : Invalid format: %y\n\n");
 
     return 0;
 }

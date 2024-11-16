@@ -14,17 +14,12 @@
 
 static int	flags(int c, va_list args)
 {
-	int	len;
-
 	if (c == 'c')
 		return (ft_putchar(va_arg(args, int)));
 	else if (c == 's')
 		return (ft_putstr(va_arg(args, char *)));
 	else if (c == 'p')
-	{
-		len = ft_putstr("0x");
-		return (len + ft_ptrnbr_base(va_arg(args, void *), "0123456789abcdef"));
-	}
+		return (ft_ptrnbr(va_arg(args, void *)));
 	else if (c == 'd')
 		return (ft_putnbr_base(va_arg(args, int), "0123456789"));
 	else if (c == 'i')
